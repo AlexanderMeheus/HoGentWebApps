@@ -16,6 +16,7 @@ app.controller('MainCtrl', [
       postFactory.create({
         title: $scope.title,
         link: $scope.link,
+        author: 'user',
       });
       $scope.title = '';
       $scope.link = '';
