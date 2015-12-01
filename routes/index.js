@@ -75,6 +75,16 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
   });
 });
 
+router.put('/posts/:post/downvote', auth, function(req, res, next) {
+  req.post.downvote(function(err, post) {
+    if (err) {
+      return next(err);
+    }
+
+    res.json(post);
+  });
+});
+
 router.post('/posts/:post/comments', auth, function(req, res, next) {
   var comment = new Comment(req.body);
   comment.post = req.post;
@@ -106,6 +116,16 @@ router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, nex
   });
 });
 
+router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, next) {
+  req.comment.downvote(function(err, comment) {
+    if (err) {
+      return next(err);
+    }
+
+    res.json(comment);
+  });
+});
+
 router.param('comment', function(req, res, next, id) {
   var query = Comment.findById(id);
 
@@ -125,7 +145,7 @@ router.param('comment', function(req, res, next, id) {
 router.post('/register', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({
-      message: 'Please fill out all fields'
+      message: 'Please fill out all fields.'
     });
   }
 
@@ -137,7 +157,9 @@ router.post('/register', function(req, res, next) {
 
   user.save(function(err) {
     if (err) {
-      return next(err);
+      return res.status(400).json({
+        message: 'Username already exists.'
+      });
     }
 
     return res.json({

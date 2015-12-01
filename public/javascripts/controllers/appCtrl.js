@@ -1,0 +1,1 @@
+app.controller("AppCtrl",["$scope","$mdSidenav",function(n,o){n.toggleSidenav=function(n){o(n).toggle()}}]);

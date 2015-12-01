@@ -30,6 +30,19 @@ app.factory('posts', ['$http', 'auth', function($http, auth) {
       });
   };
 
+  postFactory.downvote = function(post) {
+    if (post.upvotes > 0) {
+      return $http.put('/posts/' + post._id + '/downvote', null, {
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        })
+        .success(function(data) {
+          post.upvotes -= 1;
+        });
+    }
+  };
+
   postFactory.get = function(id) {
     return $http.get('/posts/' + id).then(function(res) {
       return res.data;
@@ -53,6 +66,19 @@ app.factory('posts', ['$http', 'auth', function($http, auth) {
       .success(function(data) {
         comment.upvotes += 1;
       });
+  };
+
+  postFactory.downvoteComment = function(post, comment) {
+    if (comment.upvotes > 0) {
+      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', null, {
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        })
+        .success(function(data) {
+          comment.upvotes -= 1;
+        });
+    }
   };
 
   return postFactory;

@@ -1,0 +1,1 @@
+app.controller("MainCtrl",["$scope","posts","auth",function(t,e,n){t.posts=e.posts,t.isLoggedIn=n.isLoggedIn,t.addPost=function(){t.title&&""!==t.title&&(e.create({title:t.title,link:t.link,author:"user"}),t.title="",t.link="")},t.incrementUpvotes=function(t){e.upvote(t)},t.decrementUpvotes=function(t){e.downvote(t)}}]);

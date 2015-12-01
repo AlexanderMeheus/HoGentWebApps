@@ -23,5 +23,9 @@ app.controller('PostsCtrl', [
     $scope.incrementUpvotes = function(comment) {
       posts.upvoteComment(post, comment);
     };
+
+    $scope.decrementUpvotes = function(comment) {
+      posts.downvoteComment(post, comment);
+    };
   }
 ]);

@@ -23,9 +23,9 @@ app.controller('MainCtrl', [
       postFactory.upvote(post);
     };
 
-    /*$scope.decrementUpvotes = function(post) {
+    $scope.decrementUpvotes = function(post) {
       postFactory.downvote(post);
-    };*/
+    };
 
   }
 ]);

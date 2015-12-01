@@ -21,4 +21,4 @@ app.controller('AuthCtrl', [
       });
     };
   }
-])
+]);

@@ -1,0 +1,1 @@
+app.controller("AuthCtrl",["$scope","$state","auth",function(r,o,n){r.user={},r.register=function(){n.register(r.user).error(function(o){r.error=o}).then(function(){o.go("home")})},r.logIn=function(){n.logIn(r.user).error(function(o){r.error=o}).then(function(){o.go("home")})}}]);
