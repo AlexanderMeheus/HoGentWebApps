@@ -33,7 +33,8 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-  return gulp.src(javascriptFolder + '/**/*.js')
+  return gulp.src([javascriptFolder + '/angularApp.js', javascriptFolder + '/**/*.js'])
+    .pipe(plugins.concat('all.js'))
     .pipe(plugins.uglify())
     .pipe(gulp.dest(publicFolder + '/javascripts/'));
 });

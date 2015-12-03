@@ -1,1 +1,0 @@
-app.controller("PostsCtrl",["$scope","posts","post","auth",function(o,t,n,e){o.post=n,o.isLoggedIn=e.isLoggedIn,o.addComment=function(){""!==o.body&&(t.addComment(n._id,{body:o.body,author:"user"}).success(function(t){o.post.comments.push(t)}),o.body="")},o.incrementUpvotes=function(o){t.upvoteComment(n,o)},o.decrementUpvotes=function(o){t.downvoteComment(n,o)}}]);

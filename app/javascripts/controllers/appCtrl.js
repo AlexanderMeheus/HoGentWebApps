@@ -5,6 +5,5 @@ app.controller('AppCtrl', [
     $scope.toggleSidenav = function(menuId) {
       $mdSidenav(menuId).toggle();
     };
-
   }
 ]);
