@@ -5,7 +5,7 @@ var plugins = gulpLoadPlugins();
 
 //target folders
 var testFolder = './test';
-var sassFolder = '.app/sass';
+var sassFolder = './app/sass';
 var javascriptFolder = './app/javascripts';
 var imagesFolder = './app/images';
 var htmlFolder = './app/templates';
@@ -18,6 +18,12 @@ gulp.task('runTests', function() {
     .pipe(plugins.mocha());
 });
 
+gulp.task("lint", function() {
+  return gulp.src(javascriptFolder + '/**/*.js')
+    .pipe(plugins.jshint())
+    .pipe(plugins.jshint.reporter("default"));
+});
+
 gulp.task('styles', function() {
   return gulp.src(sassFolder + '/**/*.scss')
     .pipe(plugins.sass({
@@ -26,16 +32,10 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(publicFolder + '/stylesheets/'));
 });
 
-gulp.task('compress', function() {
+gulp.task('scripts', function() {
   return gulp.src(javascriptFolder + '/**/*.js')
     .pipe(plugins.uglify())
     .pipe(gulp.dest(publicFolder + '/javascripts/'));
-});
-
-gulp.task("lint", function() {
-  return gulp.src(javascriptFolder + '/**/*.js')
-    .pipe(plugins.jshint())
-    .pipe(plugins.jshint.reporter("default"));
 });
 
 gulp.task('images', function() {
@@ -56,4 +56,15 @@ gulp.task('minify-html', function() {
     .pipe(gulp.dest(publicFolder + '/templates/'));
 });
 
-gulp.task('default', ['styles', 'compress', 'images', 'minify-html']);
+gulp.task('watch', function() {
+  // Watch .scss files
+  gulp.watch(sassFolder + '/**/*.scss', ['styles']);
+  // Watch .js files
+  gulp.watch(javascriptFolder + '/**/*.js', ['scripts']);
+  // Watch image files
+  gulp.watch(imagesFolder + '/**/*.{png,jpg,gif,jpeg}', ['images']);
+  // Watch .html files
+  gulp.watch(htmlFolder + '/**/*.html', ['minify-html']);
+});
+
+gulp.task('default', ['styles', 'scripts', 'images', 'minify-html']);
