@@ -22,7 +22,7 @@ describe('GET /posts', function() {
 
         if(post){
           //console.log('post: ', post);
-          expect(post).to.have.all.keys('__v', '_id', 'comments', 'upvotes', 'author', 'title');
+          expect(post).to.have.all.keys('__v', '_id', 'comments', 'link', 'upvotes', 'author', 'title');
           expect(post.comments).to.be.an('array');
           expect(post.upvotes).to.be.a('number');
           done();
